@@ -179,7 +179,8 @@ public class ArticleDetailFragment extends Fragment implements
 
         TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
-        bylineView.setMovementMethod(new LinkMovementMethod());
+        if(bylineView.getLinksClickable())
+        bylineView.setMovementMethod(LinkMovementMethod.getInstance());  //used for links in text view
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
@@ -194,9 +195,16 @@ public class ArticleDetailFragment extends Fragment implements
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                             DateUtils.FORMAT_ABBREV_ALL).toString()
                             + " by <font color='#ffffff'>"
+                            +"<u>"
+                            +"<a href='http://www.google.com'>"
                             + mCursor.getString(ArticleLoader.Query.AUTHOR)
+                            +"</a>"
+                            +"</u>"
                             + "</font>"));
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
+            if(bodyView.getLinksClickable()){
+                bodyView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
