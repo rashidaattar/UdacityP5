@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -54,6 +55,8 @@ public class ArticleDetailFragment extends Fragment implements
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
+    private TextView bodyView;
+    private ProgressBar progressBar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -138,6 +141,8 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
+        progressBar= (ProgressBar) mRootView.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
         bindViews();
         updateStatusBar();
         return mRootView;
@@ -181,7 +186,7 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         if(bylineView.getLinksClickable())
         bylineView.setMovementMethod(LinkMovementMethod.getInstance());  //used for links in text view
-        TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
+        bodyView = (TextView) mRootView.findViewById(R.id.article_body);
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
@@ -209,11 +214,13 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                                Palette p = Palette.generate(bitmap, 12);
+                                progressBar.setVisibility(View.GONE);
+                                Palette p = Palette.from(bitmap).generate(); //removed deprectaed method
                                 mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
                                 mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);
+                                bodyView.setTextColor(p.getDarkVibrantColor(0xFF333333));
                                 updateStatusBar();
                             }
                         }
