@@ -195,11 +195,9 @@ public class ArticleDetailFragment extends Fragment implements
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                             DateUtils.FORMAT_ABBREV_ALL).toString()
                             + " by <font color='#ffffff'>"
-                            +"<u>"
                             +"<a href='http://www.google.com'>"
                             + mCursor.getString(ArticleLoader.Query.AUTHOR)
                             +"</a>"
-                            +"</u>"
                             + "</font>"));
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
             if(bodyView.getLinksClickable()){
