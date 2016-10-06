@@ -10,8 +10,9 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:theme="@style/AppBarLayout">
+        android:layout_height="280dp"
+        android:theme="@style/AppBarLayout"
+        android:elevation="4dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -35,7 +36,7 @@
             <LinearLayout
                 android:id="@+id/meta_bar"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/detail_metabar_vert_padding"
                 android:background="#333"
