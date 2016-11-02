@@ -2,7 +2,7 @@
 
  5th Project for Udacity.
 
- Transformed the user experience of a news reading app using Material Design principles. This includes consistent and meaningful use of Material Design UI components, fonts, color, motion and surfaces.
+ Transformed the user experience of a news reading app using Material Design principles. This includes consistent and meaningful use of Material Design UI components, fonts, color, motion and surfaces including the use of Cordinator Layout and shared element transitions.
 
 Starter code provided by [Udacity](https://github.com/udacity)
 
